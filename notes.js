@@ -17,5 +17,13 @@ const userArticles = [
      { userID4: [articleID1, articleID2, articleID3] },
  ];
 
- 
+
  //npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar react-native-gesture-handler
+
+ //npm install react-native-paper
+
+ //npm install react-native-vector-icons
+
+ //npm i puppeteer
+
+ 
