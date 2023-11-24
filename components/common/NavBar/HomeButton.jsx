@@ -1,9 +1,11 @@
+import { View, Text } from 'react-native';
+
 export default function HomeButton() {
 
     return (
-        <div>
-            <h1>HomeButton</h1>
-        </div>
+        <View>
+            <Text>HomeButton</Text>
+        </View>
     );
 
 };

@@ -1,17 +1,18 @@
 import Header from '../common/Header.jsx'; 
 import ArticleCard from '../common/ArticleCard.jsx';
 import NavBar from '../common/NavBar/NavBar.jsx';
+import { View, Text } from 'react-native';
 
 
 export default function AllArticles() {
 
     return (
-        <div>
+        <View>
             <Header />
-            <h1>AllArticles</h1>
+            <Text>AllArticles</Text>
             <ArticleCard /> 
             <NavBar />
-        </div>
+        </View>
     );
 
 };

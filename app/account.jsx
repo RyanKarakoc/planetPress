@@ -1,13 +1,14 @@
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar/NavBar";
+import { View, Text } from "react-native";
 
 export default function Account(){
     return(
-        <div>
+        <View>
             <Header />
-            <h1>Account/sign out</h1>
+            <Text>Account/sign out</Text>
             // signout and/or other functionality
             <NavBar />
-        </div>
+        </View>
     );
 };
