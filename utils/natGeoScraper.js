@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import { addArticles, checkArticleExists } from "./dbFunctions.js";
 
 const natGeoScraper = async () => {
   // Launch the browser and open a new blank page
@@ -34,26 +35,27 @@ const natGeoScraper = async () => {
           .querySelector(".BackgroundImage__Image--highRes")
           .style.backgroundImage.replace(/.*\s?url\([\'\"]?/, "")
           .replace(/[\'\"]?\).*/, "");
-
         extractedData.push({ headline, url, img_url });
       });
 
       return extractedData;
     });
 
-    // adding date and previews
-    articleData.map((article) => {
-      if (!article.preview) {
-        article.preview = "No preview available.";
+    for (const article of articleData) {
+      const url = article.url;
+      const exists = await checkArticleExists(url);
+      if (exists) {
+        continue;
+      } else {
+        if (!article.preview) {
+          article.preview = "No preview available.";
+        }
+        if (!article.date) {
+          article.date = new Date();
+        }
+        addArticles(articleData);
       }
-      if (!article.date) {
-        article.date = new Date();
-      }
-    });
-
-    console.log(articleData);
-
-    
+    }
   } catch (err) {
     console.log("scrape failed", err);
   } finally {
