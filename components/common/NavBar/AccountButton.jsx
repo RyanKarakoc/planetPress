@@ -1,9 +1,8 @@
+import { Text, View } from "react-native";
 export default function AccountButton() {
-
-    return (
-        <div>
-            <h1>AccountButton</h1>
-        </div>
-    );
-
-};
+  return (
+    <View>
+      <Text>AccountButton</Text>
+    </View>
+  );
+}

@@ -1,12 +1,11 @@
+import { Text, View } from "react-native";
 export default function EventCard() {
-
-    return (
-        <div>
-            <h1>EventCard</h1>
-            {/* DateCard made in here?? 
+  return (
+    <View>
+      <Text>EventCard</Text>
+      {/* DateCard made in here?? 
                 Title & Description
                 BellButton made in here??*/}
-        </div>
-    );
-
-};
+    </View>
+  );
+}

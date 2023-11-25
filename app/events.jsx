@@ -1,14 +1,15 @@
 import Header from "../components/common/Header.jsx";
 import EventCard from "../components/common/EventCard.jsx";
 import NavBar from "../components/common/NavBar/NavBar.jsx";
+import { Text, View } from "react-native";
 
 export default function Events() {
-    return (
-        <div>
-            <Header />
-            <h1>Events</h1>
-            <EventCard />
-            <NavBar />
-        </div>
-    );
-};
+  return (
+    <View>
+      <Header />
+      <Text>Events</Text>
+      <EventCard />
+      <NavBar />
+    </View>
+  );
+}
