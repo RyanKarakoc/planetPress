@@ -1,4 +1,6 @@
 import puppeteer from "puppeteer";
+import { db } from "../config/firebase.js";
+import { addDoc, collection } from "firebase/firestore";
 
 export const bbcScraper = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
@@ -40,7 +42,7 @@ export const bbcScraper = async () => {
 
     // Make default preview message and date scraped
     articleData.map((article) => {
-      article.preview = "No preview available";
+      article.preview = "No preview available.";
       article.date = new Date();
     });
 
@@ -51,6 +53,17 @@ export const bbcScraper = async () => {
     articleData[0].preview = prevText;
 
     console.log(articleData);
+
+    articleData.forEach((article) => {
+      const articleCollectionRef = collection(db, "articles");
+      addDoc(articleCollectionRef, article)
+        .then((docRef) => {
+          console.log(`Document written with ID: ${docRef.id}`);
+        })
+        .catch((error) => {
+          console.error(`Error adding document: ${error}`);
+        });
+    });
   } catch (err) {
     console.error(err);
   } finally {
