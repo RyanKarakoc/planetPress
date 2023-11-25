@@ -29,11 +29,11 @@ export default function NavBar() {
         ]}
         safeAreaInsets={{ bottom }}
       >
-        <Appbar.Action icon="home" style={styles.button} onPress={() => {}} />
-        <Appbar.Action icon="newspaper" style={styles.button} onPress={() => {}} />
-        <Appbar.Action icon="calendar" style={styles.button} onPress={() => {}} />
-        <Appbar.Action icon="folder-heart-outline" style={styles.button} onPress={() => {}} />
-        <Appbar.Action icon="account-cowboy-hat" style={styles.button} onPress={() => {}} />
+        <HomeButton style={styles.button} />
+        <ArticlesButton style={styles.button} />
+        <EventsButton style={styles.button} />
+        <LikedButton style={styles.button} />
+        <AccountButton style={styles.button} />
 
       </Appbar>
     );
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
         border: 'solid',
         borderColor: '#274e13',
         borderTopColor: '#274e13',
-    
     }
   });
 
