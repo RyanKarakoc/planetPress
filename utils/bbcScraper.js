@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { addArticles } from "./dbFunctions.js";
+import { addArticles, checkArticleExists } from "./dbFunctions.js";
 
 export const bbcScraper = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
@@ -10,17 +10,10 @@ export const bbcScraper = async () => {
     await page.goto("https://www.bbc.co.uk/news/science_and_environment");
     const articleData = [];
 
-    // Gather headlines
-    const headlineSelector = "p.ssrcss-17zglt8-PromoHeadline > span";
-    const headlines = await page.$$(headlineSelector);
-    for (let i = 0; i < Math.min(headlines.length, 10); i++) {
-      const text = await page.evaluate((el) => el.textContent, headlines[i]);
-      articleData.push({ headline: text });
-    }
-
     // Get Main Article URL
     const mainUrl = await page.$("a.ssrcss-afqep1-PromoLink.exn3ah91");
     const mainLink = await page.evaluate((el) => el.href, mainUrl);
+    if (checkArticleExists(mainLink)) return;
     articleData[0].url = mainLink;
 
     // Gather rest of article URLs
@@ -28,13 +21,22 @@ export const bbcScraper = async () => {
     const urls = await page.$$(urlsSelector);
     for (let i = 0; i < Math.min(urls.length, 9); i++) {
       const link = await page.evaluate((el) => el.href, urls[i]);
+      if (checkArticleExists(link)) return;
       // i + 1 to avoid overwriting the main page's link
       articleData[i + 1].url = link;
     }
 
+    // Gather headlines
+    const headlineSelector = "p.ssrcss-17zglt8-PromoHeadline > span";
+    const headlines = await page.$$(headlineSelector);
+    for (let i = 0; i < Math.min(articleData.length, 10); i++) {
+      const text = await page.evaluate((el) => el.textContent, headlines[i]);
+      articleData.push({ headline: text });
+    }
+
     // Gather article image URLs
     const img = await page.$$("picture > img");
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < Math.min(articleData.length, 10); i++) {
       const src = await img[i].evaluate((el) => el.getAttribute("src"));
       articleData[i].img_url = src;
     }
