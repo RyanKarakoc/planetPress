@@ -1,6 +1,6 @@
 import { Button, TextInput } from "react-native-paper";
 import Header from "../components/common/Header";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { login, signUp } from "../utils/authFunctions";
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
@@ -45,8 +45,8 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
