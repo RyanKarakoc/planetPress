@@ -46,5 +46,3 @@ export const getAllArticles = async () => {
     console.error("could not retrieve articles");
   }
 };
-
-getAllArticles();
