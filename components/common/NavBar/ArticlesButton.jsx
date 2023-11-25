@@ -1,9 +1,8 @@
+import { Text, View } from "react-native";
 export default function ArticlesButton() {
-
-    return (
-        <div>
-            <h1>ArticlesButton</h1>
-        </div>
-    );
-
-};
+  return (
+    <View>
+      <Text>ArticlesButton</Text>
+    </View>
+  );
+}

@@ -1,9 +1,8 @@
+import { Text, View } from "react-native";
 export default function EventsButton() {
-
-    return (
-        <div>
-            <h1>EventsButton</h1>
-        </div>
-    );
-
-};
+  return (
+    <View>
+      <Text>EventsButton</Text>
+    </View>
+  );
+}

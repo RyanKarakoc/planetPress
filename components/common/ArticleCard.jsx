@@ -1,12 +1,13 @@
+import { Text, View } from "react-native";
 export default function ArticleCard() {
 
     return (
-        <div>
-            <h1>ArticleCard</h1>
+        <View>
+            <Text>ArticleCard</Text>
             {/* ImageCard made in here?? 
                 Title & first paragraph
                 LikeButton made in here??*/}
-        </div>
+        </View>
     );
 
 };
