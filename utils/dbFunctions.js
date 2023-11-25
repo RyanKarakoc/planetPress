@@ -31,3 +31,18 @@ export const checkArticleExists = async (url) => {
     console.error(err);
   }
 };
+
+export const getAllArticles = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "articles"));
+    const articles = [];
+    querySnapshot.forEach((doc) => {
+      const article = doc.data();
+      articles.push(article);
+    });
+    console.log(articles);
+    return articles;
+  } catch (err) {
+    console.error("could not retrieve articles");
+  }
+};
