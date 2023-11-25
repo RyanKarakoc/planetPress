@@ -1,9 +1,8 @@
+import { Text, View } from "react-native";
 export default function LikedButton() {
-
-    return (
-        <div>
-            <h1>LikedButton</h1>
-        </div>
-    );
-
-};
+  return (
+    <View>
+      <Text>LikedButton</Text>
+    </View>
+  );
+}
