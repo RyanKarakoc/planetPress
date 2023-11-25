@@ -5,6 +5,7 @@ import { login, signUp } from "../utils/authFunctions";
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
 import { auth } from "../config/firebase";
+import { StyleSheet } from 'react-native';
 
 export default function Login() {
   const [email, setEmail] = useState("");

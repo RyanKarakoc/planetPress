@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { articles } from '../../dummy-data/index.js';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
