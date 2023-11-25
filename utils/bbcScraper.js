@@ -49,6 +49,26 @@ export const bbcScraper = async () => {
       article.date = new Date();
     });
 
+    // for (const article of articleData) {
+    //   const url = article.url;
+    //   const exists = await checkArticleExists(url);
+    //   if (exists) {
+    //     console.log("2");
+    //     continue;
+    //   } else {
+    //     if (!article.preview) {
+    //       console.log("3");
+    //       article.preview = "No preview available.";
+    //     }
+    //     if (!article.date) {
+    //       console.log("4");
+    //       article.date = new Date();
+    //     }
+    //     console.log("5");
+    //     addArticles(articleData);
+    //   }
+    // }
+
     // Gather preview text
     const previewSelector = "p.ssrcss-1q0x1qg-Paragraph.e1jhz7w10";
     const preview = await page.$$(previewSelector);
@@ -62,3 +82,5 @@ export const bbcScraper = async () => {
     await browser.close();
   }
 };
+
+bbcScraper()

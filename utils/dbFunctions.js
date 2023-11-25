@@ -32,4 +32,4 @@ export const checkArticleExists = async (url) => {
   }
 };
 
-checkArticleExists("https://www.bbc.co.uk/news/science-environment-67445233");
+// checkArticleExists("https://www.bbc.co.uk/news/science-environment-67445233");
