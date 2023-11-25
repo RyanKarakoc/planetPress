@@ -7,7 +7,9 @@ import { auth } from "../config/firebase";
 
 export const login = async (email, pass) => {
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
+    console.log(typeof email, typeof pass);
+    console.log(email, pass);
+    await signInWithEmailAndPassword(auth, email.toString(), pass);
   } catch (err) {
     alert(err.message);
   }
@@ -15,8 +17,9 @@ export const login = async (email, pass) => {
 
 export const signUp = async (email, pass) => {
   try {
+    console.log(typeof email, typeof pass);
     // Creates new user
-    const userCredential = await createUserWithEmailAndPassword(
+    await createUserWithEmailAndPassword(
       auth,
       email,
       pass
