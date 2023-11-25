@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "type": "module",
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
     "expo": "~49.0.15",
