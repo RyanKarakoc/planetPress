@@ -5,6 +5,8 @@ import { useRouter } from "expo-router";
 import { Button } from "react-native-paper";
 import { logout } from "../utils/authFunctions";
 import { useEffect } from "react";
+import Header from "../components/common/Header";
+import NavBar from "../components/common/NavBar/NavBar"
 
 export default function App() {
   const route = useRouter();
