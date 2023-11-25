@@ -21,7 +21,7 @@ export default function Login() {
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header />
       <TextInput
         label="Email"
@@ -41,3 +41,12 @@ export default function Login() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
