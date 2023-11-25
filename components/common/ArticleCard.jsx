@@ -8,9 +8,13 @@ const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
 export default function ArticleCard({ id, headline, preview, img_url, url}) {
 
-    const handleOnPress = () => {
-        console.log("clicked");
+    const handleReadFullArticle = () => {
+        console.log("clicked read full article");
         Linking.openURL(url);
+    }
+
+    const handleSaveArticle = () => {
+        console.log("clicked save article");
     }
 
     return (
@@ -21,10 +25,19 @@ export default function ArticleCard({ id, headline, preview, img_url, url}) {
             </Card.Content>
             <Card.Cover source={{ uri: `${img_url}`}} />
             <Card.Actions style={styles.bottom}>
-                <Button textColor='white' style={styles.button} onPress={handleOnPress} >Read full article</Button>
-                <Button style={styles.button}
+                <Button 
+                    textColor='white' 
+                    style={styles.button} 
+                    onPress={handleReadFullArticle} 
+                >
+                    Read full article
+                </Button>
+
+                <Button 
+                    onPress={handleSaveArticle}
+                    style={styles.button}
                     icon="heart"
-                > </Button>
+                />
             </Card.Actions>
         </Card>
 

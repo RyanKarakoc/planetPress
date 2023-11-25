@@ -1,5 +1,5 @@
 import { db } from '../config/firebase.js';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, where } from 'firebase/firestore';
 
 
 export const addArticles = async (articles) => {
@@ -47,3 +47,20 @@ export const getAllArticles = async () => {
     console.error("could not retrieve articles");
   }
 };
+
+
+export const saveArticle = async (userID, articleID) => {
+  try {
+    const userArticlesRef = collection(db, "user_articles");
+    addDoc(userArticlesRef, { userID, articleID })
+    .then((docRef) => {
+      
+      console.log(`Document written with ID: ${docRef}`);
+    })
+  }
+  catch (err) {
+    console.error('could not save article');
+  }
+};
+
+saveArticle('user1', 'article1');
