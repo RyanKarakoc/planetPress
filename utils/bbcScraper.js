@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
-import { db } from "../config/firebase.js";
-import { addDoc, collection } from "firebase/firestore";
+import { addArticles } from "./dbFunction.js";
 
 export const bbcScraper = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
@@ -52,23 +51,10 @@ export const bbcScraper = async () => {
     const prevText = await page.evaluate((el) => el.textContent, preview[3]);
     articleData[0].preview = prevText;
 
-    console.log(articleData);
-
-    articleData.forEach((article) => {
-      const articleCollectionRef = collection(db, "articles");
-      addDoc(articleCollectionRef, article)
-        .then((docRef) => {
-          console.log(`Document written with ID: ${docRef.id}`);
-        })
-        .catch((error) => {
-          console.error(`Error adding document: ${error}`);
-        });
-    });
+    await addArticles(articleData);
   } catch (err) {
     console.error(err);
   } finally {
     await browser.close();
   }
 };
-
-bbcScraper();
