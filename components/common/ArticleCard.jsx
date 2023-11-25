@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
 
@@ -17,6 +18,7 @@ export default function ArticleCard() {
                 <Button>Ok</Button>
             </Card.Actions>
         </Card>
+
     );
 
 };

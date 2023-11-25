@@ -1,50 +1,46 @@
+import { Button, TextInput } from "react-native-paper";
 import Header from "../components/common/Header";
-import { useEffect } from "react";
-import { View, Text } from "react-native";
-import { auth, googleProvider} from "../config/firebase";
-import { signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
-import { StyleSheet } from 'react-native';
+import { View } from "react-native";
+import { login, signUp } from "../utils/authFunctions";
+import { useEffect, useState } from "react";
+import { router } from "expo-router";
+import { auth } from "../config/firebase";
 
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
 
-export default function Login(){
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("inside useEffect");
+        router.push({ pathname: "/" });
+      }
+    });
+    return unsubscribe;
+  }, []);
 
-    console.log(googleProvider);
-    console.log(signInWithRedirect);
-    useEffect(() => {
-        signInWithRedirect(auth, googleProvider);
-        getRedirectResult(auth)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access Google APIs.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-    
-        // The signed-in user info.
-        const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-    
-      }, []);
-
-
-    return(
-        <View style={styles.container}>
-            <Header />
-            <Text>Login</Text>
-            {/* // google login */}
-          
-        </View>
-    );
-};
+  return (
+    <View style={styles.container}>
+      <Header />
+      <TextInput
+        label="Email"
+        value={email}
+        onChangeText={(email) => setEmail(email)}
+      />
+      <TextInput
+        label="Password"
+        secureTextEntry
+        right={<TextInput.Icon icon="eye" />}
+        value={pass}
+        onChangeText={(pass) => setPass(pass)}
+      />
+      <Button onPress={() => signUp(email, pass)}>SignUp</Button>
+      <Button onPress={() => login(email, pass)}>Login</Button>
+      {/* // google login */}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
