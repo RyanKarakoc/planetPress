@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { addArticles } from "./dbFunction.js";
+import { addArticles } from "./dbFunctions.js";
 
 export const bbcScraper = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
