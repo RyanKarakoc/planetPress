@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { addArticles } from './dbFunctions.js';
+import { addArticles, checkArticleExists } from './dbFunctions.js';
 
 export default async function guardianScraper() {
   const browser = await puppeteer.launch({ headless: 'new' });
@@ -27,21 +27,26 @@ export default async function guardianScraper() {
       const url = await articleLinks[i].evaluate((el) => el.href);
       const img_url = await images[i].evaluate((el) => el.getAttribute('src'));
 
-      articles.push({
-        date: new Date(),
-        headline,
-        preview,
-        url,
-        img_url: img_url,
-      });
+      // Check if current article already exists in the DB
+      // If not, then prep it to be stored in the DB
+      const exists = await checkArticleExists(url);
+      if (!exists) {
+        articles.push({
+          date: new Date(),
+          headline,
+          preview,
+          url,
+          img_url: img_url,
+        });
+      }
     }
 
-    addArticles(articles);
+    // Add formatted articles to DB (if any)
+    if (articles.length) addArticles(articles);
+    console.log(articles);
   } catch (err) {
     console.log(err);
   } finally {
     await browser.close();
   }
 }
-
-guardianScraper();

@@ -1,5 +1,5 @@
 import { db } from '../config/firebase.js';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 export const addArticles = async (articles) => {
   articles.forEach((article) => {
@@ -12,4 +12,22 @@ export const addArticles = async (articles) => {
         console.error(`Error adding document: ${error}`);
       });
   });
+};
+
+export const checkArticleExists = async (url) => {
+  try {
+    const articleCollectionRef = collection(db, 'articles');
+    const q = query(articleCollectionRef, where('url', '==', url));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.log('No article with that URL found');
+      return false;
+    } else {
+      console.log('Yes, that article exists!');
+      return true;
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
