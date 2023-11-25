@@ -1,6 +1,23 @@
 import puppeteer from 'puppeteer';
-import { addArticles } from './dbFunctions.js';
+import { addArticles, checkArticleExists } from './dbFunctions.js';
 
+/** All articles
+ * headline: 
+  - FIRST: ssrcss-17zglt8-PromoHeadline exn3ah96 > span
+  - REST:  ssrcss-17zglt8-PromoHeadline exn3ah96 > span
+
+ * img_url
+  - FIRST: ssrcss-evoj7m-Image edrdn950
+  - REST:  ssrcss-evoj7m-Image edrdn950
+
+ * preview - only first article has a preview
+  - FIRST ONLY: ssrcss-1q0x1qg-Paragraph e1jhz7w10
+  - REST: [ NONE ]
+
+ * url - NOTE: featured article's className with "ssrcss-" prefix is unique, use exn3ah91 instead
+  - FIRST: ssrcss-afqep1-PromoLink exn3ah91
+  - REST:  ssrcss-1mrs5ns-PromoLink exn3ah91
+*/
 export const bbcScraper = async () => {
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
@@ -8,50 +25,48 @@ export const bbcScraper = async () => {
 
   try {
     await page.goto('https://www.bbc.co.uk/news/science_and_environment');
-    const articleData = [];
 
-    // Gather headlines
-    const headlineSelector = 'p.ssrcss-17zglt8-PromoHeadline > span';
-    const headlines = await page.$$(headlineSelector);
-    for (let i = 0; i < Math.min(headlines.length, 10); i++) {
-      const text = await page.evaluate((el) => el.textContent, headlines[i]);
-      articleData.push({ headline: text });
+    // Select elements from dom
+    const headlines = await page.$$('.ssrcss-17zglt8-PromoHeadline > span');
+    const articleLinks = await page.$$('.exn3ah91');
+    const images = await page.$$('.ssrcss-evoj7m-Image');
+
+    let articles = [];
+
+    // Extract article details & format for database storage
+    for (let i = 0; i < Math.min(articleLinks.length, 10); i++) {
+      // For first/featured article only, scrape article-preview text
+      let preview = null;
+      if (i === 0) {
+        const featuredArticlePreview = await page.$(
+          '.ssrcss-1q0x1qg-Paragraph'
+        );
+        preview = await featuredArticlePreview.evaluate((el) => el.textContent);
+      }
+
+      // For all articles
+      const headline = await headlines[i].evaluate((el) => el.textContent);
+      const url = await articleLinks[i].evaluate((el) => el.href);
+      const img_url = await images[i].evaluate((el) => el.getAttribute('src'));
+
+      // Check if current article already exists in the DB
+      // If not, then prep it to be stored in the DB
+      const exists = await checkArticleExists(url);
+      if (!exists) {
+        articles.push({
+          headline,
+          preview,
+          url,
+          img_url,
+          date: new Date(),
+        });
+      }
     }
 
-    // Get Main Article URL
-    const mainUrl = await page.$('a.ssrcss-afqep1-PromoLink.exn3ah91');
-    const mainLink = await page.evaluate((el) => el.href, mainUrl);
-    articleData[0].url = mainLink;
+    console.log(articles);
 
-    // Gather rest of article URLs
-    const urlsSelector = 'a.ssrcss-1mrs5ns-PromoLink';
-    const urls = await page.$$(urlsSelector);
-    for (let i = 0; i < Math.min(urls.length, 9); i++) {
-      const link = await page.evaluate((el) => el.href, urls[i]);
-      // i + 1 to avoid overwriting the main page's link
-      articleData[i + 1].url = link;
-    }
-
-    // Gather article image URLs
-    const img = await page.$$('picture > img');
-    for (let i = 0; i < 10; i++) {
-      const src = await img[i].evaluate((el) => el.getAttribute('src'));
-      articleData[i].img_url = src;
-    }
-
-    // Make default preview message and date scraped
-    articleData.map((article) => {
-      article.preview = 'No preview available.';
-      article.date = new Date();
-    });
-
-    // Gather preview text
-    const previewSelector = 'p.ssrcss-1q0x1qg-Paragraph.e1jhz7w10';
-    const preview = await page.$$(previewSelector);
-    const prevText = await page.evaluate((el) => el.textContent, preview[3]);
-    articleData[0].preview = prevText;
-
-    await addArticles(articleData);
+    // Add formatted articles to DB (if any)
+    if (articles.length) addArticles(articles);
   } catch (err) {
     console.error(err);
   } finally {
