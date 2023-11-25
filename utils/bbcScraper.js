@@ -13,7 +13,8 @@ export const bbcScraper = async () => {
     // Get Main Article URL
     const mainUrl = await page.$("a.ssrcss-afqep1-PromoLink.exn3ah91");
     const mainLink = await page.evaluate((el) => el.href, mainUrl);
-    if (checkArticleExists(mainLink)) return;
+    const mainExists = await checkArticleExists(mainLink);
+    if (mainExists) return;
     articleData[0].url = mainLink;
 
     // Gather rest of article URLs
@@ -21,7 +22,8 @@ export const bbcScraper = async () => {
     const urls = await page.$$(urlsSelector);
     for (let i = 0; i < Math.min(urls.length, 9); i++) {
       const link = await page.evaluate((el) => el.href, urls[i]);
-      if (checkArticleExists(link)) return;
+      const exists = await checkArticleExists(link);
+      if (exists) return;
       // i + 1 to avoid overwriting the main page's link
       articleData[i + 1].url = link;
     }
