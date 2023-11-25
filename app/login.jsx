@@ -1,14 +1,12 @@
 import { Button, TextInput } from "react-native-paper";
 import Header from "../components/common/Header";
-import { StyleSheet, View, Text } from "react-native";
+import { View } from "react-native";
 import { login, signUp } from "../utils/authFunctions";
 import { useEffect, useState } from "react";
-import { Redirect } from "expo-router";
+import { router } from "expo-router";
 import { auth } from "../config/firebase";
 
 export default function Login() {
-  console.log("login");
-  console.log(auth.currentUser);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -16,7 +14,7 @@ export default function Login() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         console.log("inside useEffect");
-        return <Redirect href="./index" />;
+        router.push({ pathname: "/" });
       }
     });
     return unsubscribe;
@@ -37,8 +35,8 @@ export default function Login() {
         value={pass}
         onChangeText={(pass) => setPass(pass)}
       />
-      <Button onPress={() => signUp(auth, email, pass)}>SignUp</Button>
-      <Button onPress={() => login(auth, email, pass)}>Login</Button>
+      <Button onPress={() => signUp(email, pass)}>SignUp</Button>
+      <Button onPress={() => login(email, pass)}>Login</Button>
       {/* // google login */}
     </View>
   );

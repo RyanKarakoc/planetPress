@@ -1,20 +1,30 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { auth } from "../config/firebase";
-import { Redirect, useRouter } from "expo-router";
-import Login from "./login";
+import { useRouter } from "expo-router";
+import { Button } from "react-native-paper";
+import { logout } from "../utils/authFunctions";
 import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 
 export default function App() {
-  console.log("index");
-  if (!auth.currentUser) {
-    return <Redirect href="./login" />;
-  }
+  const route = useRouter();
+
+  useEffect(() => {
+    const subscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        route.push({ pathname: "/login" });
+      }
+    });
+    return subscribe;
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text>Open up index.js to start working on your app!</Text>
+      <Text>
+        Logged in as: {auth.currentUser ? auth.currentUser.email : null}
+      </Text>
+      <Button onPress={() => logout()}>Logout</Button>
       <StatusBar style="auto" />
     </View>
   );
