@@ -1,10 +1,21 @@
-import { db } from '../config/firebase.js';
-import { addDoc, collection, doc, getDocs, query, where } from 'firebase/firestore';
-
+import { db } from "../config/firebase.js";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { auth } from "../config/firebase.js";
 
 export const addArticles = async (articles) => {
   articles.forEach((article) => {
-    const articleCollectionRef = collection(db, 'articles');
+    const articleCollectionRef = collection(db, "articles");
     addDoc(articleCollectionRef, article)
       .then((docRef) => {
         console.log(`Document written with ID: ${docRef.id}`);
@@ -39,28 +50,31 @@ export const getAllArticles = async () => {
     const articles = [];
     querySnapshot.forEach((doc) => {
       const article = doc.data();
-      articles.push(article);
+      articles.push({ ...article, id: doc.id });
     });
-    console.log(articles);
+    // console.log(articles);
     return articles;
   } catch (err) {
     console.error("could not retrieve articles");
   }
 };
 
-
-export const saveArticle = async (userID, articleID) => {
+export const saveArticle = async (articleID) => {
+  const userId = auth.currentUser.uid;
   try {
-    const userArticlesRef = collection(db, "user_articles");
-    addDoc(userArticlesRef, { userID, articleID })
-    .then((docRef) => {
-      
-      console.log(`Document written with ID: ${docRef}`);
-    })
-  }
-  catch (err) {
-    console.error('could not save article');
+    const userArticleDocRef = doc(db, "user_articles", userId);
+    const userArticleDoc = await getDoc(userArticleDocRef);
+
+    const existingArticles = userArticleDoc.exists()
+      ? userArticleDoc.data() // if exists
+      : {}; // if doesnt exist
+
+    await setDoc(userArticleDocRef, {
+      ...existingArticles,
+      [articleID]: articleID,
+    });
+    console.log(`Document updated or created with userID: ${userId}`);
+  } catch (err) {
+    console.error("Could not save article: ", err);
   }
 };
-
-saveArticle('user1', 'article1');
