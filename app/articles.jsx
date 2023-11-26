@@ -1,28 +1,10 @@
-import Header from "../components/common/Header.jsx";
-import NavBar from "../components/common/NavBar/NavBar.jsx";
-import { View, Text } from "react-native";
-import { StyleSheet } from "react-native";
-import { useGlobalState } from "../providers/GlobalState.jsx";
-import AllArticles from "../components/articles/AllArticles.jsx";
+import AllArticles from '../components/articles/AllArticles.jsx';
+import ScreenLayout from '../components/common/ScreenLayout.jsx';
 
 export default function Articles() {
-  const { allArticles, setAllArticles } = useGlobalState();
-
   return (
-    <View style={styles.container}>
-      <Header />
+    <ScreenLayout>
       <AllArticles />
-      <NavBar />
-    </View>
+    </ScreenLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 95,
-  },
-});
