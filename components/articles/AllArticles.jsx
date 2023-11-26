@@ -2,6 +2,7 @@ import ArticleCard from '../common/ArticleCard.jsx';
 import { FlatList } from 'react-native';
 import { useGlobalState } from '../../providers/GlobalState.jsx';
 
+
 export default function AllArticles() {
   const { allArticles } = useGlobalState();
 
