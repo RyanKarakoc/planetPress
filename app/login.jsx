@@ -1,24 +1,36 @@
-import { Button, TextInput } from 'react-native-paper';
-import Header from '../components/login/Header';
-import { StyleSheet, View } from 'react-native';
-import { login, signUp } from '../utils/authFunctions';
-import { useEffect, useState } from 'react';
-import { router } from 'expo-router';
-import { auth } from '../config/firebase';
+import { Button, TextInput } from "react-native-paper";
+import Header from "../components/login/Header";
+import { BackHandler, StyleSheet, View } from "react-native";
+import { login, signUp } from "../utils/authFunctions";
+import { useEffect, useState } from "react";
+import { router } from "expo-router";
+import { auth } from "../config/firebase";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [secure, setSecure] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('inside useEffect');
-        router.push({ pathname: '/' });
+        console.log("inside useEffect");
+        router.push({ pathname: "/" });
       }
     });
-    return unsubscribe;
+    const handleBackButton = () => {
+      // Prevent going back by returning true
+      return true;
+    };
+
+    // Add the event listener when the component mounts
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+      unsubscribe();
+    };
   }, []);
 
   const togglePasswordVisibility = () => setSecure((prevSecure) => !prevSecure);
@@ -86,33 +98,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   loginFormContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
     gap: 10,
   },
 
   formInput: {
     // shared between email & password inputs
-    width: '80%',
-    backgroundColor: '#f6fcf3',
-    borderColor: 'red',
+    width: "80%",
+    backgroundColor: "#f6fcf3",
+    borderColor: "red",
   },
   emailInput: {},
   passwordInput: {},
 
   buttonsContainer: {
-    width: '80%',
+    width: "80%",
     gap: 10,
     marginTop: 20,
   },
   loginBtn: {},
   signUpBtn: {
-    borderColor: '#274e13',
+    borderColor: "#274e13",
   },
 });
