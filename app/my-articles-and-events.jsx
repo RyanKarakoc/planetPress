@@ -1,19 +1,18 @@
 import Header from "../components/common/Header";
-import ArticleCard from "../components/common/ArticleCard";
-import EventCard from "../components/common/EventCard";
 import NavBar from "../components/common/NavBar/NavBar";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { StyleSheet } from 'react-native';
+import MyArticles from "../components/my-articles-and-events/MyArticles";
+import MyEvents from "../components/my-articles-and-events/MyEvents";
 
 
 export default function MyArticlesAndEvents() {
     return (
         <View style={styles.container}>
             <Header />
-            <Text>My Articles and Events</Text>
             {/* Make tab-switching functionality */}
-            <ArticleCard />
-            <EventCard />
+            <MyArticles />
+            <MyEvents />
             <NavBar />
         </View>
     );

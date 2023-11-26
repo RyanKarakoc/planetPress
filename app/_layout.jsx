@@ -4,7 +4,7 @@ import { GlobalStateProvider } from "../providers/GlobalState";
 export default function RootLayout() {
   return (
     <GlobalStateProvider>
-      <Stack screenOptions={{}} />
+      <Stack screenOptions={{ headerShown: false }} />
     </GlobalStateProvider>
   );
 }
