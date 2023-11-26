@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import { addArticles, checkArticleExists } from "./dbFunctions.js";
 
-const natGeoScraper = async () => {
+export const natGeoScraper = async () => {
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
@@ -62,5 +62,3 @@ const natGeoScraper = async () => {
     await browser.close();
   }
 };
-
-natGeoScraper();
