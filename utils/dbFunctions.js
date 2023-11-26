@@ -100,6 +100,7 @@ export const saveArticle = async (articleID) => {
 
 export const getSavedArticles = async () => {
   const userId = auth.currentUser.uid;
+  if (!userId) return [];
   try {
     // Get array of article IDs from user account
     const userArticleDocRef = doc(db, "user_articles", userId);
