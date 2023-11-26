@@ -16,7 +16,7 @@ export default function MyArticles() {
   }, []);
 
   return (
-    <View>
+    <>
       <FlatList
         data={savedArticles}
         renderItem={({ item }) => (
@@ -30,6 +30,6 @@ export default function MyArticles() {
           />
         )}
       />
-    </View>
+    </>
   );
 }
