@@ -62,5 +62,3 @@ const natGeoScraper = async () => {
     await browser.close();
   }
 };
-
-natGeoScraper();
