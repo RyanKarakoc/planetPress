@@ -2,28 +2,31 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from "firebase/auth";
-import { auth } from "../config/firebase";
+} from 'firebase/auth';
+import { auth } from '../config/firebase';
 
-export const login = async (email, pass) => {
+export const login = async (email, password) => {
   try {
-    console.log(typeof email, typeof pass);
-    console.log(email, pass);
-    await signInWithEmailAndPassword(auth, email.toString(), pass);
+    if (!email || !password) {
+      alert('Invalid credentials');
+      return;
+    }
+
+    await signInWithEmailAndPassword(auth, email.toString(), password);
   } catch (err) {
     alert(err.message);
   }
 };
 
-export const signUp = async (email, pass) => {
+export const signUp = async (email, password) => {
   try {
-    console.log(typeof email, typeof pass);
+    if (!email || !password) {
+      alert('Invalid credentials');
+      return;
+    }
+
     // Creates new user
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      pass
-    );
+    await createUserWithEmailAndPassword(auth, email, password);
   } catch (err) {
     alert(err.message);
   }
