@@ -1,29 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 import { auth } from "../config/firebase";
 import { useRouter } from "expo-router";
-import { Button } from "react-native-paper";
 import { useEffect } from "react";
-import AllArticles from "../components/articles/AllArticles";
 import { useGlobalState } from "../providers/GlobalState";
 import ArticleCard from "../components/common/ArticleCard";
 import EventCard from "../components/common/EventCard";
-import ScreenLayout from '../components/common/ScreenLayout';
+import ScreenLayout from "../components/common/ScreenLayout";
 
 // Only used while we don't have access to legit event data
-import { events } from "../dummy-data";
-
+import { callScrapers } from "../utils/callScrapers";
 
 export default function App() {
   const route = useRouter();
   const { allArticles } = useGlobalState();
-  // const { allEvents } = useGlobalState();
-  const featuredItems = [...allArticles.slice(0, 5), ...events.slice(0, 5)];
+  const { allEvents } = useGlobalState();
+  const featuredItems = [...allArticles.slice(0, 5), ...allEvents.slice(0, 5)];
 
   useEffect(() => {
+    callScrapers();
     const subscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
-        route.push({ pathname: '/login' });
+        route.push({ pathname: "/login" });
       }
     });
     return subscribe;

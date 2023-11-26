@@ -1,8 +1,8 @@
-import puppeteer from 'puppeteer';
-import { addArticles, checkArticleExists } from './dbFunctions.js';
+import puppeteer from "puppeteer";
+import { addArticles, checkArticleExists } from "./dbFunctions.js";
 
-export default async function guardianScraper() {
-  const browser = await puppeteer.launch({ headless: 'new' });
+export const guardianScraper = async () => {
+  const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
 
   // Set screen size
@@ -10,13 +10,13 @@ export default async function guardianScraper() {
 
   try {
     // Navigate to page URL
-    await page.goto('https://www.theguardian.com/uk/environment');
+    await page.goto("https://www.theguardian.com/uk/environment");
 
     // Select element from dom
-    const headlines = await page.$$('.dcr-v1s16m');
-    const previews = await page.$$('.dcr-1ay6c8s');
-    const articleLinks = await page.$$('.dcr-lv2v9o');
-    const images = await page.$$('.dcr-evn1e9');
+    const headlines = await page.$$(".dcr-v1s16m");
+    const previews = await page.$$(".dcr-1ay6c8s");
+    const articleLinks = await page.$$(".dcr-lv2v9o");
+    const images = await page.$$(".dcr-evn1e9");
 
     let articles = [];
 
@@ -25,7 +25,7 @@ export default async function guardianScraper() {
       const headline = await headlines[i].evaluate((el) => el.textContent);
       const preview = await previews[i].evaluate((el) => el.textContent);
       const url = await articleLinks[i].evaluate((el) => el.href);
-      const img_url = await images[i].evaluate((el) => el.getAttribute('src'));
+      const img_url = await images[i].evaluate((el) => el.getAttribute("src"));
 
       // Check if current article already exists in the DB
       // If not, then prep it to be stored in the DB
@@ -49,4 +49,4 @@ export default async function guardianScraper() {
   } finally {
     await browser.close();
   }
-}
+};

@@ -123,6 +123,20 @@ export const getSavedArticles = async () => {
   }
 };
 
+export const getAllEvents = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "events"));
+    const events = [];
+    querySnapshot.forEach((doc) => {
+      const event = doc.data();
+      events.push({ ...event, id: doc.id });
+    });
+    return events;
+  } catch (err) {
+    console.error("could not retrieve events");
+  }
+};
+
 export const saveEvent = async (eventId) => {
   const userId = auth.currentUser.uid;
   try {
