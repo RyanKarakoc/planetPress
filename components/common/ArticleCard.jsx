@@ -7,6 +7,7 @@ import { saveArticle } from "../../utils/dbFunctions.js";
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 export default function ArticleCard({ id, headline, preview, img_url, url }) {
+
   const handleReadFullArticle = () => {
     console.log("clicked read full article");
     Linking.openURL(url);
@@ -18,8 +19,8 @@ export default function ArticleCard({ id, headline, preview, img_url, url }) {
   };
 
   return (
-    <Card>
-      <Card.Content>
+    <Card style={styles.container}>
+      <Card.Content >
         <Text style={styles.headline} variant="titleLarge">
           {headline}
         </Text>
@@ -48,6 +49,13 @@ export default function ArticleCard({ id, headline, preview, img_url, url }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: 10,
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    },
   bottom: {
     display: "flex",
     flexDirection: "row",
@@ -58,11 +66,21 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  shadowProp: {
+   
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      
+  },
   button: {
     backgroundColor: "#274e13",
     border: "solid",
     borderColor: "#274e13",
     borderTopColor: "#274e13",
+    height: 25,
+    width: '5px !important',
   },
   headline: {
     color: "#274e13",

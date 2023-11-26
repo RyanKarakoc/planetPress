@@ -3,13 +3,13 @@ import EventCard from "../components/common/EventCard.jsx";
 import NavBar from "../components/common/NavBar/NavBar.jsx";
 import { View, Text } from "react-native";
 import { StyleSheet } from "react-native";
+import AllEvents from "../components/events/AllEvents.jsx";
 
 export default function Events() {
   return (
     <View style={styles.container}>
       <Header />
-      <Text>Events</Text>
-      <EventCard />
+      <AllEvents/>
       <NavBar />
     </View>
   );
