@@ -83,7 +83,6 @@ export const saveArticle = async (articleID) => {
   try {
     const userArticleDocRef = doc(db, "user_articles", userId);
     const userArticleDoc = await getDoc(userArticleDocRef);
-
     const existingArticles = userArticleDoc.exists()
       ? userArticleDoc.data() // if exists
       : {}; // if doesnt exist
@@ -119,6 +118,53 @@ export const getSavedArticles = async () => {
       })
     );
     return savedArticles;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const saveEvent = async (eventId) => {
+  const userId = auth.currentUser.uid;
+  try {
+    const userEventDocRef = doc(db, "user_events", userId);
+    const userEventDoc = await getDoc(userEventDocRef);
+    console.log(userEventDoc.data());
+
+    const existingEvents = userEventDoc.exists()
+      ? userEventDoc.data() // if exists
+      : {}; // if doesnt exist
+
+    await setDoc(userEventDocRef, {
+      ...existingEvents,
+      [eventId]: eventId,
+    });
+    console.log(`Document updated or created with userID: ${userId}`);
+  } catch (err) {
+    console.error("Could not save article: ", err);
+  }
+};
+
+export const getSavedEvents = async () => {
+  const userId = auth.currentUser?.uid;
+  if (!userId) return [];
+  try {
+    // Get array of event IDs from user account
+    const userEventDocRef = doc(db, "user_events", userId);
+    const userEventDoc = await getDoc(userEventDocRef);
+
+    // If no saved events, returns empty array
+    if (!userEventDoc.data()) return [];
+
+    // Get array of event IDs and map through them
+    const userEventsRefs = Object.values(userEventDoc.data());
+    const savedEvents = await Promise.all(
+      userEventsRefs.map(async (eventId) => {
+        const eventCollectionRef = doc(db, "events", eventId);
+        const event = await getDoc(eventCollectionRef);
+        return event.data();
+      })
+    );
+    return savedEvents;
   } catch (err) {
     console.error(err);
   }
