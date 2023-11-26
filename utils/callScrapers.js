@@ -1,6 +1,6 @@
-import { bbcScraper } from "./bbcScraper";
-import { guardianScraper } from "./guardianScraper";
-import { natGeoScraper } from "./natGeoScraper";
+import { bbcScraper } from "./bbcScraper.js";
+import { guardianScraper } from "./guardianScraper.js";
+import { natGeoScraper } from "./natGeoScraper.js";
 
 export const callScrapers = async () => {
   await bbcScraper();

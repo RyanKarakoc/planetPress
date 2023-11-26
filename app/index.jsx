@@ -8,8 +8,7 @@ import ArticleCard from "../components/common/ArticleCard";
 import EventCard from "../components/common/EventCard";
 import ScreenLayout from "../components/common/ScreenLayout";
 
-// Only used while we don't have access to legit event data
-import { callScrapers } from "../utils/callScrapers";
+// import { callScrapers } from "../utils/callScrapers.js";
 
 export default function App() {
   const route = useRouter();
@@ -18,7 +17,7 @@ export default function App() {
   const featuredItems = [...allArticles.slice(0, 5), ...allEvents.slice(0, 5)];
 
   useEffect(() => {
-    callScrapers();
+    // callScrapers();
     const subscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
         route.push({ pathname: "/login" });
