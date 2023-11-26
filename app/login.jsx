@@ -9,6 +9,7 @@ import { auth } from "../config/firebase";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [secure, setSecure] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -30,8 +31,8 @@ export default function Login() {
       />
       <TextInput
         label="Password"
-        secureTextEntry
-        right={<TextInput.Icon icon="eye" />}
+        secureTextEntry={secure}
+        right={<TextInput.Icon icon="eye" onPress={() => setSecure(!secure)} />}
         value={pass}
         onChangeText={(pass) => setPass(pass)}
       />
