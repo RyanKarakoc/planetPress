@@ -1,13 +1,12 @@
 import * as React from "react";
 import { Linking } from "react-native";
-import { Avatar, Button, Card, Text } from "react-native-paper";
+import { Avatar, Button, Card, Text, IconButton } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { saveArticle } from "../../utils/dbFunctions.js";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 export default function ArticleCard({ id, headline, preview, img_url, url }) {
-
   const handleReadFullArticle = () => {
     console.log("clicked read full article");
     Linking.openURL(url);
@@ -20,7 +19,7 @@ export default function ArticleCard({ id, headline, preview, img_url, url }) {
 
   return (
     <Card style={styles.container}>
-      <Card.Content >
+      <Card.Content>
         <Text style={styles.headline} variant="titleLarge">
           {headline}
         </Text>
@@ -38,9 +37,9 @@ export default function ArticleCard({ id, headline, preview, img_url, url }) {
           Read full article
         </Button>
 
-        <Button
+        <IconButton
           onPress={handleSaveArticle}
-          style={styles.button}
+          theme={styles.icon}
           icon="heart"
         />
       </Card.Actions>
@@ -49,17 +48,16 @@ export default function ArticleCard({ id, headline, preview, img_url, url }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 10,
-        shadowColor: '#171717',
-        shadowOffset: {width: -2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-    },
+  container: {
+    marginTop: 10,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   bottom: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
     backgroundColor: "#8fce00",
     position: "absolute",
     left: 0,
@@ -67,20 +65,21 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   shadowProp: {
-   
-        shadowColor: '#171717',
-        shadowOffset: {width: -2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-      
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   button: {
     backgroundColor: "#274e13",
     border: "solid",
-    borderColor: "#274e13",
-    borderTopColor: "#274e13",
-    height: 25,
-    width: '5px !important',
+    height: 40,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  icon: {
+    margin: 0,
+    colors: { primary: "#1077af", surfaceVariant: "#eae7e7" },
   },
   headline: {
     color: "#274e13",
@@ -88,5 +87,6 @@ const styles = StyleSheet.create({
   },
   preview: {
     color: "#274e13",
+    marginBottom: 5,
   },
 });
