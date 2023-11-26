@@ -4,10 +4,9 @@ import { FlatList } from "react-native";
 // import { useGlobalState } from "../../providers/GlobalState.jsx";
 import { useEffect, useState } from "react";
 
-import { events } from "../../dummy-data/index.js"
+import { events } from "../../dummy-data/index.js";
 
 export default function AllEvents() {
-
   const [savedEvents, setSavedEvents] = useState([]);
 
   useEffect(() => {
@@ -36,8 +35,6 @@ export default function AllEvents() {
           />
         )}
       />
-      <NavBar />
     </>
   );
 }
-
