@@ -99,13 +99,17 @@ export const saveArticle = async (articleID) => {
 };
 
 export const getSavedArticles = async () => {
-  // const userId = auth.currentUser.uid;
-  const userId = "nXsy7x4aknfnhazkolzTH9w0ms52";
+  const userId = auth.currentUser.uid;
   try {
+    // Get array of article IDs from user account
     const userArticleDocRef = doc(db, "user_articles", userId);
     const userArticleDoc = await getDoc(userArticleDocRef);
-    const userArticleRefs = Object.values(userArticleDoc.data());
 
+    // If no saved articles, returns empty array
+    if (!userArticleDoc.data()) return [];
+
+    // Get array of article IDs and map through them
+    const userArticleRefs = Object.values(userArticleDoc.data());
     const savedArticles = await Promise.all(
       userArticleRefs.map(async (articleId) => {
         const articleCollectionRef = doc(db, "articles", articleId);
@@ -113,7 +117,6 @@ export const getSavedArticles = async () => {
         return article.data();
       })
     );
-
     return savedArticles;
   } catch (err) {
     console.error(err);
