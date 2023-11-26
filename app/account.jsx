@@ -1,30 +1,21 @@
-import Header from "../components/common/Header";
-import NavBar from "../components/common/NavBar/NavBar";
-import { View, Text } from "react-native";
-import { StyleSheet } from "react-native";
-import { logout } from "../utils/authFunctions";
-import { Button } from "react-native-paper";
+import { StyleSheet } from 'react-native';
+import { logout } from '../utils/authFunctions';
+import { Button } from 'react-native-paper';
+import ScreenLayout from '../components/common/ScreenLayout';
 
 export default function Account() {
   return (
-    <View style={styles.container}>
-      <Header />
+    <ScreenLayout>
       <Button mode="contained" style={styles.button} onPress={() => logout()}>
         Logout
       </Button>
-      <NavBar />
-    </View>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
-    backgroundColor: "#274e13",
+    marginVertical: 20,
+    backgroundColor: '#274e13',
   },
 });

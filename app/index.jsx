@@ -4,15 +4,15 @@ import { auth } from "../config/firebase";
 import { useRouter } from "expo-router";
 import { Button } from "react-native-paper";
 import { useEffect } from "react";
-import Header from "../components/common/Header";
-import NavBar from "../components/common/NavBar/NavBar";
 import AllArticles from "../components/articles/AllArticles";
 import { useGlobalState } from "../providers/GlobalState";
 import ArticleCard from "../components/common/ArticleCard";
 import EventCard from "../components/common/EventCard";
+import ScreenLayout from '../components/common/ScreenLayout';
 
 // Only used while we don't have access to legit event data
 import { events } from "../dummy-data";
+
 
 export default function App() {
   const route = useRouter();
@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
-        route.push({ pathname: "/login" });
+        route.push({ pathname: '/login' });
       }
     });
     return subscribe;
@@ -31,8 +31,8 @@ export default function App() {
 
   return (
     // if user is logged in show home page, if not, redirect to login page.
-    <View style={styles.container}>
-      <Text style={styles.text}>
+    <ScreenLayout>
+      <Text>
         Logged in as: {auth.currentUser ? auth.currentUser.email : null}
       </Text>
       <Text style={styles.header}>Featured Articles & Events</Text>
@@ -69,8 +69,7 @@ export default function App() {
         }}
       />
       <StatusBar style="auto" />
-      <NavBar />
-    </View>
+    </ScreenLayout>
   );
 }
 
