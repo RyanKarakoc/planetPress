@@ -18,7 +18,7 @@ export const addArticles = async (articles) => {
 
     articles.forEach((article, index) => {
       // Create a ref to the new article document with an auto-generated ID
-      const articleRef = doc(collection(db, 'articles'));
+      const articleRef = doc(collection(db, "articles"));
       // Add the article to the batch
       batch.set(articleRef, article);
     });
@@ -47,15 +47,15 @@ export const old_addArticles = async (articles) => {
 
 export const checkArticleExists = async (url) => {
   try {
-    const articleCollectionRef = collection(db, 'articles');
-    const q = query(articleCollectionRef, where('url', '==', url));
+    const articleCollectionRef = collection(db, "articles");
+    const q = query(articleCollectionRef, where("url", "==", url));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      console.log('No article with that URL found');
+      console.log("No article with that URL found");
       return false;
     } else {
-      console.log('Yes, that article exists!');
+      console.log("Yes, that article exists!");
       return true;
     }
   } catch (err) {
@@ -65,7 +65,7 @@ export const checkArticleExists = async (url) => {
 
 export const getAllArticles = async () => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'articles'));
+    const querySnapshot = await getDocs(collection(db, "articles"));
     const articles = [];
     querySnapshot.forEach((doc) => {
       const article = doc.data();
@@ -74,7 +74,7 @@ export const getAllArticles = async () => {
     // console.log(articles);
     return articles;
   } catch (err) {
-    console.error('could not retrieve articles');
+    console.error("could not retrieve articles");
   }
 };
 
@@ -95,5 +95,27 @@ export const saveArticle = async (articleID) => {
     console.log(`Document updated or created with userID: ${userId}`);
   } catch (err) {
     console.error("Could not save article: ", err);
+  }
+};
+
+export const getSavedArticles = async () => {
+  // const userId = auth.currentUser.uid;
+  const userId = "nXsy7x4aknfnhazkolzTH9w0ms52";
+  try {
+    const userArticleDocRef = doc(db, "user_articles", userId);
+    const userArticleDoc = await getDoc(userArticleDocRef);
+    const userArticleRefs = Object.values(userArticleDoc.data());
+
+    const savedArticles = await Promise.all(
+      userArticleRefs.map(async (articleId) => {
+        const articleCollectionRef = doc(db, "articles", articleId);
+        const article = await getDoc(articleCollectionRef);
+        return article.data();
+      })
+    );
+
+    return savedArticles;
+  } catch (err) {
+    console.error(err);
   }
 };
