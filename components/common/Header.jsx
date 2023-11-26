@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{getScreenTitle(pathname)}</Text>
+      <Text style={styles.title}>{`🌍 ${getScreenTitle(pathname)}`}</Text>
     </View>
   );
 }
