@@ -29,10 +29,12 @@
 
 
 ## Wireframe:
-<p><img src="/home/lily/Documents/CODE/PROJECTS/Hackathon/planetPress/assets/screenshots/WireFrame.png"/></p>
+>><p><img src="/home/lily/Documents/CODE/PROJECTS/Hackathon/planetPress/assets/screenshots/WireFrame.png"/></p>
+![wireframe](image-5.png)
 
 ## Component Tree:
-<p><img src="/home/lily/Documents/CODE/PROJECTS/Hackathon/planetPress/assets/screenshots/componentTree.png"/></p>
+>><p><img src="/home/lily/Documents/CODE/PROJECTS/Hackathon/planetPress/assets/screenshots/componentTree.png"/></p>
+![componenttree](image-4.png)
 
 ## The Team
 
