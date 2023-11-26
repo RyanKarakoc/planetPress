@@ -1,4 +1,3 @@
-import Header from "../common/Header.jsx";
 import ArticleCard from "../common/ArticleCard.jsx";
 import NavBar from "../common/NavBar/NavBar.jsx";
 import { FlatList } from "react-native";

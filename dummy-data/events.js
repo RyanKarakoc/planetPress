@@ -1,84 +1,53 @@
 const events = [
   {
-    id: 1,
-    date: new Date('2023-01-15T08:00:00Z'),
-    host: 'Green Initiatives Co.',
-    title: 'Sustainable Living Expo',
-    location: 'City Convention Center, Green City',
-    url: 'https://example.com/event1',
-  },
-  {
-    id: 2,
-    date: new Date('2023-02-22T10:30:00Z'),
-    host: 'Eco Solutions Network',
-    title: 'Renewable Energy Symposium',
-    location: 'GreenTech Institute Auditorium',
-    url: 'https://example.com/event2',
-  },
-  {
-    id: 3,
-    date: new Date('2023-03-18T09:45:00Z'),
-    host: 'Nature Preservation Society',
-    title: 'Hiking for Conservation',
-    location: 'Mountain Trails, Eco Valley',
-    url: 'https://example.com/event3',
-  },
-  {
-    id: 4,
-    date: new Date('2023-04-10T14:00:00Z'),
-    host: 'Climate Action Coalition',
-    title: 'Youth for Climate Workshop',
-    location: 'Community Center, Sustainable Town',
-    url: 'https://example.com/event4',
-  },
-  {
     id: 5,
-    date: new Date('2023-05-05T11:15:00Z'),
-    host: 'Clean Oceans Foundation',
-    title: 'Beach Cleanup Day',
-    location: 'Coastal Areas, Oceanfront City',
-    url: 'https://example.com/event5',
+    eventName: 'Manchester - People, Planet, Pint: Sustainability...',
+    date: '30',
+    month: 'NOV',
+    dayAndTime: 'Thu, 18:00–20:00',
+    location: 'Manchester',
+    img_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3qtRdgj6DzyelKBVI4RLwckwSPWz9ni0KrPWc5zU7IrKJ_6cdtmIkU7w&s'
   },
   {
-    id: 6,
-    date: new Date('2023-06-20T13:30:00Z'),
-    host: 'Urban Green Spaces Association',
-    title: 'Urban Gardens Expo',
-    location: 'City Park Pavilion',
-    url: 'https://example.com/event6',
-  },
-  {
-    id: 7,
-    date: new Date('2023-07-08T10:00:00Z'),
-    host: 'Wildlife Conservation Alliance',
-    title: 'Bird Watching Tour',
-    location: 'Nature Reserve, Forest Haven',
-    url: 'https://example.com/event7',
-  },
-  {
-    id: 8,
-    date: new Date('2023-08-12T15:45:00Z'),
-    host: 'GreenTech Innovators',
-    title: 'Environmental Tech Showcase',
-    location: 'Innovation Hub, Tech City',
-    url: 'https://example.com/event8',
-  },
-  {
-    id: 9,
-    date: new Date('2023-09-25T09:00:00Z'),
-    host: 'Sustainable Agriculture Society',
-    title: "Farmers' Market and Eco Fair",
-    location: 'Community Square, AgroVillage',
-    url: 'https://example.com/event9',
-  },
-  {
-    id: 10,
-    date: new Date('2023-10-30T12:30:00Z'),
-    host: 'Global Climate Summit',
-    title: 'International Climate Conference',
-    location: 'Global Convention Center',
-    url: 'https://example.com/event10',
-  },
+    id: 1,
+    eventName: 'Birmingham - Tech Innovators Meetup',
+    date: '15',
+    month: 'DEC',
+    dayAndTime: 'Wed, 17:00–19:00',
+    location: 'Birmingham',
+    img_url: 'https://example.com/event2.jpg'
+},
+
+{
+    id: 2,
+    eventName: 'Liverpool - Art & Culture Evening',
+    date: '05',
+    month: 'JAN',
+    dayAndTime: 'Fri, 19:00–22:00',
+    location: 'Liverpool',
+    img_url: 'https://example.com/event3.jpg'
+},
+
+{
+    id: 3,
+    eventName: 'Leeds - Foodies Festival',
+    date: '22',
+    month: 'FEB',
+    dayAndTime: 'Sat, 12:00–16:00',
+    location: 'Leeds',
+    img_url: 'https://example.com/event4.jpg'
+},
+
+{
+    id: 4,
+    eventName: 'London - Sustainable Living Workshop',
+    date: '11',
+    month: 'MAR',
+    dayAndTime: 'Sun, 10:00–13:00',
+    location: 'London',
+    img_url: 'https://example.com/event5.jpg'
+},
+
 ];
 
 export default events;

@@ -32,4 +32,14 @@ const user_articles = [
 
  //npm i puppeteer
 
- 
+//  Event Object
+
+
+const event1 = {
+    eventName: 'Manchester - People, Planet, Pint: Sustainability...',
+    date: '30',
+    month: 'NOV',
+    dayAndTime: 'Thu, 18:00–20:00',
+    location: 'Manchester',
+    image_Url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3qtRdgj6DzyelKBVI4RLwckwSPWz9ni0KrPWc5zU7IrKJ_6cdtmIkU7w&s'
+  }
