@@ -6,7 +6,7 @@ import { saveEvent } from "../../utils/dbFunctions.js";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
-export default function EventsaveEventCard({
+export default function EventCard({
   id,
   eventName,
   date,

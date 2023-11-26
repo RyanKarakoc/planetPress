@@ -1,4 +1,3 @@
-
 import EventCard from "../common/EventCard.jsx";
 import NavBar from "../common/NavBar/NavBar.jsx";
 import { FlatList } from "react-native";
