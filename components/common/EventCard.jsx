@@ -33,7 +33,7 @@ export default function EventsaveEventCard({
           {eventName}
         </Text>
         <Text style={styles.when} variant="bodyMedium">
-          {date} {month} {dayAndTime}
+          {date.toString()}
         </Text>
       </Card.Content>
       <Card.Cover source={{ uri: `${img_url}` }} />
@@ -45,7 +45,7 @@ export default function EventsaveEventCard({
         >
           See full event
         </Button>
-        <IconButton onPress={handleSaveEvent} style={styles.icon} icon="bell" />
+        <IconButton onPress={handleSaveEvent} theme={styles.icon} icon="bell" />
       </Card.Actions>
     </Card>
   );
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     margin: 0,
+    colors: { primary: "#d3b427", surfaceVariant: "#eae7e7" },
   },
   eventName: {
     color: "#274e13",
@@ -87,5 +88,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-// TODO: Fix bell icon color
